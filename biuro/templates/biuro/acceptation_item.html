@@ -1,0 +1,35 @@
+﻿{% extends "homepage/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <img class="img-fluid" src="{{ item.zdjecie.url }}" alt="">
+        </div>
+        <div class="col">
+            <form method="POST">
+            {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Ogłoszenie oczekujące na akceptację</legend>
+                    <label for="nazwa">nazwa:</label>
+                    <input name="nazwa" class="form-control" type="text" value="{{item.nazwa}}" required>
+                    <label for="opis">opis:</label>            
+                    <textarea name="opis" class="form-control" rows="3" required>{{item.opis}}</textarea>
+                    <label for="kontakt">kontakt:</label>            
+                    <input name="kontakt" class="form-control" type="text" value="{{item.kontakt}}" required>    
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Zaakceptuj</button>
+                </div>     
+            </form>
+                <a href="javascript:{document.getElementById('{{item.id}}').submit()}" class="btn btn-outline-info">
+                    <i class="fas fa-sign-out-alt"></i> Usuń
+                </a>
+                <form action="{% url 'item-delete' item.id %}" method="POST" id="{{item.id}}">
+                    {% csrf_token %}
+                    <input type="hidden">
+                </form>
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}

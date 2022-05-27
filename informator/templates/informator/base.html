@@ -1,0 +1,6 @@
+﻿{% extends "homepage/base.html" %}
+
+        
+{% block auth_links %}
+    <a class="nav-item nav-link" href="{% url 'post-create' %}">Nowy post</a>
+{% endblock auth_links %}

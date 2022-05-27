@@ -1,0 +1,7 @@
+﻿{% extends "homepage/base.html" %}
+
+{% block auth_links %}
+{% if user.is_superuser %}
+<a class="nav-item nav-link" href="{% url 'koncerty-create' %}">Utwórz wydarzenie</a>
+{% endif %}
+{% endblock auth_links %}

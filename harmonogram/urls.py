@@ -1,0 +1,43 @@
+from django.urls import path
+from .views import (
+    KoncertListView, 
+    KoncertDetailView, 
+    KoncertCreateView,
+    KoncertUpdateView,
+    KoncertDeleteView,
+    CzwartekListView,
+    PiatekListView,
+    SobotaListView,
+    TsportuListView,
+    TsportuDetailView,
+    TkulturyListView,
+    TkulturyDetailView,
+    PlanListView,
+    )
+from . import views
+
+urlpatterns = [
+    path('',  PlanListView.as_view(), name='harmonogram-home'),
+    path('tydzien-sportu/', TsportuListView.as_view(), name='harmonogram-tydzien-sportu'),
+    path('tydzien-sportu/szczegoly/<int:pk>/', TsportuDetailView.as_view(), name='tydzien-sportu-detail'),
+    path('tydzien-sportu/szczegoly/<int:pk>/<str:operation>/', views.tsportu_uczestnictwo_me, name='tsportu_uczestnictwo_me'),
+    path('tydzien-sportu/szczegoly/<int:pk>/<str:operation>/<int:num>', views.tsportu_uczestnictwo_other, name='tsportu_uczestnictwo_other'),
+    path('tydzien-sportu/<int:pk>/update/', KoncertUpdateView.as_view(), name='tydzien-sportu-update'),
+    path('tydzien-sportu/<int:pk>/delete/', KoncertDeleteView.as_view(), name='tydzien-sportu-delete'),
+    path('tydzien-kultury/', TkulturyListView.as_view(), name='harmonogram-tydzien-kultury'),
+    path('tydzien-kultury/szczegoly/<int:pk>/', TkulturyDetailView.as_view(), name='tydzien-kultury-detail'),
+    path('tydzien-kultury/szczegoly/<int:pk>/<str:operation>/', views.tkultury_uczestnictwo_me, name='tkultury_uczestnictwo_me'),
+    path('tydzien-kultury/szczegoly/<int:pk>/<str:operation>/<int:num>', views.tkultury_uczestnictwo_other, name='tkultury_uczestnictwo_other'),
+    path('tydzien-kultury/<int:pk>/update/', KoncertUpdateView.as_view(), name='tydzien-kultury-update'),
+    path('tydzien-kultury/<int:pk>/delete/', KoncertDeleteView.as_view(), name='tydzien-kultury-delete'),
+    path('koncerty/', KoncertListView.as_view(), name='harmonogram-koncerty'),
+    path('koncerty/szczegoly/<int:pk>/', KoncertDetailView.as_view(), name='koncerty-detail'),
+    path('wydarzenie/nowe/', KoncertCreateView.as_view(), name='koncerty-create'),
+    path('koncerty/<int:pk>/update/', KoncertUpdateView.as_view(), name='koncerty-update'),
+    path('koncerty/<int:pk>/delete/', KoncertDeleteView.as_view(), name='koncerty-delete'),
+    path('koncerty/czwartek/', CzwartekListView.as_view(), name='koncerty-czwartek'),
+    path('koncerty/piatek/', PiatekListView.as_view(), name='koncerty-piatek'),
+    path('koncerty/sobota/', SobotaListView.as_view(), name='koncerty-sobota'),
+    path('koncerty/szczegoly/<int:pk>/<str:operation>/', views.koncerty_uczestnictwo_me, name='koncerty_uczestnictwo_me'),
+    path('koncerty/szczegoly/<int:pk>/<str:operation>/<int:num>', views.koncerty_uczestnictwo_other, name='koncerty_uczestnictwo_other'),
+]

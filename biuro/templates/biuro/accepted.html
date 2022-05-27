@@ -1,0 +1,16 @@
+﻿{% extends "homepage/base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+    <h1>Ogłoszenia zatwierdzone przeze mnie:</h1>    
+    {% for item in items %}
+     <p style=" word-break: break-all;"><a href="{% url 'item-detail' item.id %}">{{item.nazwa}}</a></p>
+    {% empty %}
+     <h2>Brak zatwierdzonych ogłoszeń</h2>
+    {% endfor %}  
+    </div>
+  </div>
+</div>
+    
+{% endblock content %}

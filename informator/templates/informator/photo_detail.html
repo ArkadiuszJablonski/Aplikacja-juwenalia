@@ -1,0 +1,13 @@
+﻿{% extends "informator/base_photo.html" %}
+{% block content %}
+        <h2 style=" word-break: break-all;">{{photo.opis }}</h2>
+            {% if user.is_superuser %}
+            <div>
+                <a class="btn btn-secondary brn-sm mt-1 mb 1" href="{% url 'photo-update' photo.id %}">Edytuj</a>
+                <a class="btn btn-danger brn-sm mt-1 mb 1" href="{% url 'photo-delete' object.id %}">Usuń</a>
+            </div>
+            {% endif %}
+        <div class="mapa">
+            <img class="rounded mx-auto d-block" src="{{ photo.zdjecie.url }}" >
+        </div>
+{% endblock content %}

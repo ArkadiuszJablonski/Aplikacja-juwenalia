@@ -1,0 +1,34 @@
+﻿{% extends "homepage/base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+    {% if user.is_superuser %}
+      <a class="btn btn-outline-primary btn-lg btn-block" href="{% url 'biuro-waiting' %}" role="button" style="font-size: 15px;">Ogłoszenia oczekujące na akceptacje</a>
+      <a class="btn btn-outline-primary btn-lg btn-block" href="{% url 'biuro-accepted' %}" role="button" style="font-size: 15px;">Ogłoszenia zaakceptowane przeze mnie</a>    
+    {% endif %}
+      <a class="btn btn-outline-success btn-lg btn-block" href="{% url 'biuro-found' %}" role="button" style="font-size: 15px;">Dodaj ogłoszenie o znalezionym przedmiocie</a>
+      <a class="btn btn-outline-danger btn-lg btn-block" href="{% url 'biuro-lost' %}" role="button" style="font-size: 15px;">Dodaj ogłoszenie o zgubionym przedmiocie</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    <h1 style="font-size: 25px;">Ogłoszenia o znalezionych przedmiotach:</h1>    
+    {% for found in items_found %}
+     <p><a href="{% url 'item-detail' found.id %}">{{found.nazwa}}</a></p>
+    {% empty %}
+     <li>Brak ogłoszeń o znalezionych przedmiotach</li>
+    {% endfor %}  
+    </div>
+    <div class="col">
+    <h1 style="font-size: 25px;">Ogłoszenia o zgubionych przedmiotach:</h1>
+    {% for lost in items_lost %}
+     <p><a href="{% url 'item-detail' lost.id %}">{{lost.nazwa}}</a></p>
+    {% empty %}
+     <li>Brak ogłoszeń o zgubionych przedmiotach</li>
+    {% endfor %}
+    </div>
+  </div>
+</div>
+    
+{% endblock content %}

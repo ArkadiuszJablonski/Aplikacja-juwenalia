@@ -1,0 +1,21 @@
+﻿{% extends "odnosniki/base.html" %}
+{% block content %}
+    <h1>Odnośniki do Social Media</h1>
+
+<div class="social">
+    <p>Sledź nas na:</p>
+    {% for odnosnik in odnosniki %}
+    <div class="social social2">
+        <a href="{{ odnosnik.link }}">
+            <img class="social-img" height="120px" width="120px" src="{{ odnosnik.zdjecie.url }}" alt="{{ odnosnik.nazwa }}" ></img>
+        </a>
+        {% if user.is_superuser %}
+        <div>
+            <a class="btn btn-secondary brn-sm mt-1 mb 1" href="{% url 'odnosniki-update' odnosnik.id %}">Edytuj</a>
+            <a class="btn btn-danger brn-sm mt-1 mb 1" href="{% url 'odnosniki-delete' odnosnik.id %}">Usuń</a>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    </div>
+{% endblock content %}

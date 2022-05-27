@@ -1,0 +1,30 @@
+﻿{% extends "homepage/base.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center display-4">Ogłoszenie</h1>
+  <div class="row">
+    {% if item %}
+      <div class="col">
+          {% if user == item.user or user.is_superuser %}
+          <a href="javascript:{document.getElementById('{{item.id}}').submit()}" class="btn btn-outline-info btn-lg btn-block">
+              <i class="fas fa-sign-out-alt"></i> Usuń
+          </a>
+          <form action="{% url 'item-delete' item.id %}" method="POST" id="{{item.id}}">
+              {% csrf_token %}
+              <input type="hidden">
+          </form>
+          {% endif %}
+          <br>
+          <div class="text-center">
+              <img class="img-fluid" src="{{ item.zdjecie.url }}" alt="">
+          </div>
+          <h4 class="text-center">{{item.nazwa}}</h4>
+          <p class="lead text-center">Opis: {{item.opis}}</p>
+          <p class="text-center">Kontakt: {{item.kontakt}}</p>
+          <p class="lead text-center">Data dodania: {{item.data_dodania|date:"d F Y, G:i"}}</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+    
+{% endblock content %}

@@ -1,0 +1,9 @@
+﻿{% extends "homepage/base.html" %}
+{% block content %}
+    <h1>Ogłoszenia oczekujące na akceptacje</h1>
+    {% for item in items %}
+    <p><a href="{% url 'acceptation-item-detail' item.id %}" style=" word-break: break-all;">{{item.nazwa}}</a></p>
+    {% empty %}
+    <h1>Brak oczekujących ogłoszeń</h1>
+    {% endfor %}
+{% endblock content %}

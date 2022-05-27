@@ -1,0 +1,7 @@
+﻿{% extends "homepage/base.html" %}
+        
+{% block auth_links %}
+{% if user in organizatorzy or user.is_superuser %}
+<a class="nav-item nav-link" href="{% url 'powiadomienie-create' %}">Nowe powiadom.</a>
+{% endif %}
+{% endblock auth_links %}

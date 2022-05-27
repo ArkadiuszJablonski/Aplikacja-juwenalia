@@ -1,0 +1,73 @@
+﻿{% extends "powiadomienia/base.html" %}
+{% block content %}
+    <h1 class="anton">Powiadomienia</h1>
+    <div class="btn-group" style="width:100%">
+        <form action="{% url 'powiadomienia-home' %}">
+            <button class="btn btn-outline-info" style="width:100%" %}>Wszystkie</button>
+        </form>
+        <!-- testowe ukryte bo nieistotne dla uzytkownika -->
+        <!-- <form action="{% url 'powiadomienia-testowe' %}">
+            <button class="btn btn-outline-info" style="width:100%" %}>testowe</button>
+        </form> -->
+        <form action="{% url 'powiadomienia-wazne' %}">
+            <button class="btn btn-outline-info" style="width:100%" %}>Ważne</button>
+        </form>
+        <form action="{% url 'powiadomienia-przypomnienia' %}">
+            <button class="btn btn-outline-info" style="width:100%" %}>Przypomienia</button>
+        </form>
+        <form action="{% url 'powiadomienia-konkursy' %}">
+            <button class="btn btn-outline-info" style="width:100%" %}>Konkurs</button>
+        </form>
+        <form action="{% url 'powiadomienia-inne' %}">
+            <button class="btn btn-outline-info" style="width:100%" %}>Inne</button>
+        </form>
+    </div>
+    </br>
+</br>
+
+
+
+
+    {% for powiadomienie in powiadomienia %}
+   
+        {% if user.profile.uczelnia == powiadomienie.odbiorcy or powiadomienie.odbiorcy == 'wszyscy' %}
+      
+        <article class="media content-section">
+         
+            <div class="media-body">
+                <div class="article-metadata">
+                    <small class="text-muted">{{ powiadomienie.kategoria }},</small>              
+                    <small class="text-muted">{{ powiadomienie.date_posted|date:"H:i, F d, Y"  }}</small>
+                </div>
+                <h2 style=" word-break: break-all;"><a class="article-title anton" href="{% url 'powiadomienie-detail' powiadomienie.id %}">{{ powiadomienie.nazwa }}</a></h2>
+                
+                <p class="article-content" style=" word-break: break-all;">{{ powiadomienie.treść }}</p>
+               
+            </div>
+        </article>
+        {% endif %}
+    {% endfor %}
+
+    {% if is_paginated %}
+
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-4" href="?page=1"> << </a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}"> < </a>
+        {% endif %}
+    
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class ="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}"> > </a>
+            <a class ="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}"> >> </a>
+        {% endif %}
+    {% endif %} 
+
+{% endblock content %}
+        
